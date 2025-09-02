@@ -1,0 +1,32 @@
+name: Pages Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-docs:
+    runs-on: unbuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby 3.4 with Bundler cache
+        uses: ruby/setup-ruby@v1
+        with:
+            ruby-version: '3.4'
+            bundler-cache: true
+
+      - name: Install dependencies (bundle install in docs)
+        run: bundle install
+        working-directory: docs
+
+      - name: Build site
+        run: bundle exec jekyll build
+        working-directory: docs
+
+      - name: Upload page artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+            path: ./docs/_site
