@@ -1,2 +1,4 @@
+---
+---
 ## Project Description: (for now)
 This app is designed for readers that intend on tracking the progress of books they’ve read, as well as helping the user incorportate reading into their daily routine. This app would elevate the reading experience by adding mood-based tracking, paragraph tracking, as well as user statistics. Additionally, a fun feature would be to incentivize the reading experience by adding badges to unlock by completing certain challenges.
