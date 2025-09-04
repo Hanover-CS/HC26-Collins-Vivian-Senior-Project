@@ -1,10 +1,11 @@
+theme: jekyll-theme-cayman
+
 plugins:
   - jekyll-relative-links
-  - jekyll-remote-theme
 
-  lsi: false
+lsi: false
 safe: true
-source: .
+source: docs
 incremental: false
 highlighter: rouge
 gist:
@@ -12,6 +13,3 @@ gist:
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
-remote_theme: pages-themes/cayman@v0.2.0
-
-title: [Project Proposal]
