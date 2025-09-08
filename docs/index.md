@@ -6,5 +6,4 @@ layout: default
 # Welcome!
 This is my senior Project proposa
 Read it here:
-
 - [Proposal](./proposal.md)
