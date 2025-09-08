@@ -1,2 +1,4 @@
 ---
+title: "Welcome"
+layout: default
 ---
