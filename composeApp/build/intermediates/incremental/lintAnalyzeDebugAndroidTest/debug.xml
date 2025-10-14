@@ -1,0 +1,30 @@
+<variant
+    name="debug"
+    package="org.example.pagepalapp"
+    minSdkVersion="24"
+    targetSdkVersion="36.0"
+    debuggable="true"
+    mergedManifest="build\intermediates\merged_manifest\debug\processDebugMainManifest\AndroidManifest.xml"
+    partialResultsDir="build\intermediates\android_test_lint_partial_results\debug\lintAnalyzeDebugAndroidTest\out"
+    desugaredMethodsFiles="C:\Users\vivia\.gradle\caches\8.14.3\transforms\163c5c6bf19103d40e25b38532bc40ca\transformed\D8BackportedDesugaredMethods.txt">
+  <buildFeatures
+      namespacing="REQUIRED"/>
+  <sourceProviders>
+  </sourceProviders>
+  <testSourceProviders>
+    <sourceProvider
+        manifests="src\androidInstrumentedTest\AndroidManifest.xml"
+        javaDirectories="src\androidTest\java;src\androidTestDebug\java;src\androidInstrumentedTest\kotlin;build\generated\compose\resourceGenerator\kotlin\androidInstrumentedTestResourceAccessors;src\androidTest\kotlin;src\androidTestDebug\kotlin"
+        resDirectories="src\androidTest\res;src\androidInstrumentedTest\res;src\androidTestDebug\res;src\androidInstrumentedTestDebug\res"
+        assetsDirectories="src\androidTest\assets;src\androidInstrumentedTest\assets;src\androidTestDebug\assets;src\androidInstrumentedTestDebug\assets"
+        androidTest="true"/>
+  </testSourceProviders>
+  <testFixturesSourceProviders>
+  </testFixturesSourceProviders>
+  <artifact
+      type="INSTRUMENTATION_TEST"
+      applicationId="org.example.pagepalapp.test"
+      generatedResourceFolders="build\generated\res\resValues\androidTest\debug"
+      desugaredMethodsFiles="C:\Users\vivia\.gradle\caches\8.14.3\transforms\163c5c6bf19103d40e25b38532bc40ca\transformed\D8BackportedDesugaredMethods.txt">
+  </artifact>
+</variant>

@@ -1,0 +1,14 @@
+title: "Senior Project"
+description: "Building a community of readers seeking to enhance their reading experience."
+remote_theme: pages-themes/cayman@v0.2.0
+baseurl: "/HC26-Collins-Vivian-Senior-Project"
+
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-relative-links
+  - jekyll-seo-tag
+
+relative_links:
+  enabled: true
+  collections: true
