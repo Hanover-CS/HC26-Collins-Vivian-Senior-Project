@@ -1,0 +1,4 @@
+org.example.pagepalapp.test.composeApp-androidTest-0 C:\Users\vivia\Downloads\PagePalApp\PagePalApp\composeApp\build\generated\res\resValues\androidTest\debug
+org.example.pagepalapp.test.composeApp-mergeDebugAndroidTestResources-1 C:\Users\vivia\Downloads\PagePalApp\PagePalApp\composeApp\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+org.example.pagepalapp.test.composeApp-mergeDebugAndroidTestResources-2 C:\Users\vivia\Downloads\PagePalApp\PagePalApp\composeApp\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+org.example.pagepalapp.test.composeApp-debugAndroidTest-3 C:\Users\vivia\Downloads\PagePalApp\PagePalApp\composeApp\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

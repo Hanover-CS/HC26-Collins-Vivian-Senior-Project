@@ -1,0 +1,15 @@
+{
+  "projectStructure": {
+    "formatVersion": "0.3.3",
+    "isPublishedAsRoot": "true",
+    "variants": [],
+    "sourceSets": [
+      {
+        "name": "commonMain",
+        "dependsOn": [],
+        "moduleDependency": [],
+        "binaryLayout": "klib"
+      }
+    ]
+  }
+}
