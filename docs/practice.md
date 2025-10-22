@@ -1,35 +1,27 @@
 ---
-title: Reusing KMP (Android app) code to make the app on another platform
+title: Practice
 layout: default
 ---
 
-## Still need to add (based on rubric):
-- 2 practice exercises
-- broken up into multiple markdown files
-- summary/conclusion page
-- more content in general
-
 # Quick Links
-1. Homepage *(current)*
-2. [Basic Overview](./gettingStarted.md)
+1. [Homepage](./tutorial.md)
+2. [Basic Overview](./tutorial.md)
 3. [Project Strucure](./projectStructure.md)
 4. [Project Setup](./setup.md)
-5. [Practice](./practice.md)
+5. Practice *current*
 6. [Homepage](./index.md)
 7. [Proposal](./proposal.md)
 
 ---
 
-This is a tutorial on how to utilize Kotlin Multiplatform for integrating code to create an app on different platforms.
+## Practice Problems (TBD)
 
-To begin, click the arrow below:
+[<- Back to Setup}](./setup.md)
 
-[-> Basic Overview](./gettingStarted.md)
-
----
+[<- Back to Home](./index.md)
 
 
-## Additional Resources
+## Further Resources
 
 - [Official Kotlin Multiplatform Docs](https://kotlinlang.org/docs/multiplatform.html)
 - [Compose Multiplatform Overview](https://www.jetbrains.com/lp/compose-multiplatform/)

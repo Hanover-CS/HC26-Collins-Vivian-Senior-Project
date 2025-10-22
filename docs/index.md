@@ -9,5 +9,5 @@ This is my senior project:
 Read the proposal here:
 - [Proposal](./proposal.md)
 
-Tutorial here:
+KMP Tutorial here:
 - [Tutorial](./tutorial.md)

@@ -6,6 +6,16 @@ layout: default
 
 ---
 
+# Quick Links
+1. [Homepage](./tutorial.md)
+2. [Basic Overview](./tutorial.md)
+3. [Project Strucure](./projectStructure.md)
+4. [Project Setup](./setup.md)
+5. [Practice](./practice.md)
+6. [Homepage](./index.md)
+7. Proposal *(current)*
+
+
 ## Project Description: 
 This app is designed for readers that intend on tracking the progress of books they’ve read, as well as helping the user incorportate reading into their daily routine by making it a more enjoyable experience. To accomplish this, the app would enhance the reading experience by adding **mood-based tracking, paragraph tracking,** as well as **user statistics** that would help give the user **personalized recommendations**. 
 
