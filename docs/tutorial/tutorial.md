@@ -5,10 +5,10 @@ layout: default
 
 # Quick Links
 1. Homepage *(current)*
-2. [Getting Started](./tutorial/gettingStarted.md)
-3. [Project Structure](./tutorial/projectStructure.md)
-4. [Project Setup](./tutorial/setup.md)
-5. [Practice](./tutorial/practice.md)
+2. [Getting Started](./gettingStarted.md)
+3. [Project Structure](./projectStructure.md)
+4. [Project Setup](./setup.md)
+5. [Practice](./practice.md)
 6. [Homepage](../index.md)
 7. [Proposal](../proposal.md)
 
