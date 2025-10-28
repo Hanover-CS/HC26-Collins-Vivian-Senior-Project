@@ -5,12 +5,12 @@ layout: default
 
 # Quick Links
 1. Homepage *(current)*
-2. [Getting Started](./gettingStarted.md)
-3. [Project Strucure](./projectStructure.md)
-4. [Project Setup](./setup.md)
-5. [Practice](./practice.md)
-6. [Homepage](./index.md)
-7. [Proposal](./proposal.md)
+2. [Getting Started](./tutorial/gettingStarted.md)
+3. [Project Structure](./tutorial/projectStructure.md)
+4. [Project Setup](./tutorial/setup.md)
+5. [Practice](./tutorial/practice.md)
+6. [Homepage](../index.md)
+7. [Proposal](../proposal.md)
 
 ---
 
@@ -27,13 +27,13 @@ This is a tutorial on how to utilize Kotlin Multiplatform for integrating reusab
 
 To begin, click the arrow below:
 
-### [-> Getting Started](./gettingStarted.md)
+### [-> Getting Started](./tutorial/gettingStarted.md)
 
 ---
 
 Or, go back to the Homepage:
 
-### [<- Back to Home](./index.md)
+### [<- Back to Home](../index.md)
 
 
 ## Additional Resources

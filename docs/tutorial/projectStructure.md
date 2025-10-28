@@ -4,13 +4,13 @@ layout: default
 ---
 
 # Quick Links
-1. [Homepage](./tutorial/tutorial.md)
+1. [Homepage](./tutorial.md)
 2. [Getting Started](./gettingStarted.md)
 3. Project Strucure *(current)*
 4. [Project Setup](./setup.md)
 5. [Practice](./practice.md)
-6. [Homepage](./index.md)
-7. [Proposal](./proposal.md)
+6. [Homepage](../index.md)
+7. [Proposal](../proposal.md)
 
 ---
 
@@ -64,7 +64,7 @@ The Kotlin Gradle plugin actually has a built-in default hierarchy template that
 
 [Jetbrains provides a deeper explanation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template), as well as some images that properly document what the[hierarchical structure generally looks like. It should essentially look like this:
 
-![DefaultHierarchy](./screenshots/DefaultHierarchy.png)
+![DefaultHierarchy](../screenshots/DefaultHierarchy.png)
 
 Next, we will discuss the setup process for setting up a shared model, as well as the testing process.
 
@@ -74,4 +74,4 @@ Next, we will discuss the setup process for setting up a shared model, as well a
 
 ---
 
-### [<- Back to Home](./index.md)
+### [<- Back to Home](../index.md)

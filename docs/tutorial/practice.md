@@ -4,13 +4,13 @@ layout: default
 ---
 
 # Quick Links
-1. [Homepage](./tutorial/tutorial.md)
+1. [Homepage](./tutorial.md)
 2. [Getting Started](./gettingStarted.md)
 3. [Project Strucure](./projectStructure.md)
 4. [Project Setup](./setup.md)
-5. Practice *current*
-6. [Homepage](./index.md)
-7. [Proposal](./proposal.md)
+5. Practice *(current)*
+6. [Homepage](../index.md)
+7. [Proposal](../proposal.md)
 
 ---
 
@@ -88,8 +88,8 @@ With all this in mind, it is a lot easier to get started with the app creation.
 
 ---
 
-### [<- Back to Setup}](./setup.md)
+### [<- Back to Setup](./setup.md)
 
 ---
 
-### [<- Back to Home](./index.md)
+### [<- Back to Home](../index.md)

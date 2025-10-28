@@ -9,8 +9,8 @@ layout: default
 3. [Project Strucure](./projectStructure.md)
 4. Project Setup *(current)*
 5. [Practice](./practice.md)
-6. [Homepage](./index.md)
-7. [Proposal](./proposal.md)
+6. [Homepage](../index.md)
+7. [Proposal](../proposal.md)
 
 ---
 
@@ -61,7 +61,7 @@ This would configure the shared module, whilst setting up Android *and* iOS as t
 
 The goal is to move or write code that’s not dependent on any single platform into `commonMain`.
 
-![SharedCodePlatforms](./screenshots/SharedCodePlatforms.png)
+![SharedCodePlatforms](../screenshots/SharedCodePlatforms.png)
 
 Examples of shared code include:
 - Business rules and validation
@@ -155,5 +155,5 @@ Now, try it for yourself on the next page for some practice problems.
 ### [<- Back to Project Structure](./projectStructure.md)
 ---
 
-### [<- Back to Home](./index.md)
+### [<- Back to Home](../index.md)
 

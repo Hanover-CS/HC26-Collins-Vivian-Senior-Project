@@ -1,18 +1,17 @@
 ---
 title: "Project Proposal"
 layout: default
-show_description: false
 ---
 # PagePal: A Friend for Every Chapter
 
 ---
 
 # Quick Links
-1. [Tutorial Main Page](./tutorial/tutorial.md)
-2. [Basic Overview](./tutorial.md)
-3. [Project Strucure](./projectStructure.md)
-4. [Project Setup](./setup.md)
-5. [Practice](./practice.md)
+1. [Homepage](./tutorial/tutorial.md)
+2. [Getting Started](./tutorial/gettingStarted.md)
+3. [Project Strucure](./tutorial/projectStructure.md)
+4. [Project Setup](./tutorial/setup.md)
+5. [Practice](./tutorial/practice.md)
 6. [Homepage](./index.md)
 7. Proposal *(current)*
 

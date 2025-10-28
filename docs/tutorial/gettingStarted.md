@@ -9,8 +9,8 @@ layout: default
 3. [Project Strucure](./projectStructure.md)
 4. [Project Setup](./setup.md)
 5. [Practice](./practice.md)
-6. [Homepage](./index.md)
-7. [Proposal](./proposal.md)
+6. [Homepage](../index.md)
+7. [Proposal](../proposal.md)
 
 ## Basic Overview
 
@@ -65,6 +65,7 @@ Next, we will move on to the KMP's project structure to understand how it works 
 
 ### [<- Back to Beginning](./tutorial.md)
 
+
 ---
 
-### [<- Back to Home](./index.md)
+### [<- Back to Home](../index.md)
