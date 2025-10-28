@@ -27,7 +27,7 @@ This is a tutorial on how to utilize Kotlin Multiplatform for integrating reusab
 
 To begin, click the arrow below:
 
-### [-> Getting Started](./tutorial/gettingStarted.md)
+### [-> Getting Started](./gettingStarted.md)
 
 ---
 
