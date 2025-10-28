@@ -4,8 +4,8 @@ layout: default
 ---
 
 # Quick Links
-1. [Homepage](./tutorial.md)
-2. Basic Overview *(Current)*
+1. [Homepage](./tutorial/tutorial.md)
+2. Getting Started *(Current)*
 3. [Project Strucure](./projectStructure.md)
 4. [Project Setup](./setup.md)
 5. [Practice](./practice.md)
@@ -59,8 +59,12 @@ Next, we will move on to the KMP's project structure to understand how it works 
 
 ---
 
-[-> Project Structure](./projectStructure.md)
+### [-> Project Structure](./projectStructure.md)
 
 ---
 
-[<- Back to Home](./index.md)
+### [<- Back to Beginning](./tutorial.md)
+
+---
+
+### [<- Back to Home](./index.md)

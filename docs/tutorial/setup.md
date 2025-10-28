@@ -4,8 +4,8 @@ layout: default
 ---
 
 # Quick Links
-1. [Homepage](./tutorial.md)
-2. [Basic Overview](./tutorial.md)
+1. [Homepage](./tutorial/tutorial.md)
+2. [Getting Started](./gettingStarted.md)
 3. [Project Strucure](./projectStructure.md)
 4. Project Setup *(current)*
 5. [Practice](./practice.md)
@@ -21,7 +21,7 @@ If your existing Android app doesn’t already include a shared module, you’ll
 1. In Android Studio:  
    **File → New → New Module → Kotlin Multiplatform Library**
 
-2. Edit the `shared/build.gradle.kts` file if it doesn’t exist (create it if necessary):
+2. Edit the `shared/build.gradle.kts` file if it doesn’t exist (I would also recommend creating it if necessary):
 
 ```plugins {
     kotlin("multiplatform")
@@ -144,19 +144,16 @@ class SampleTest {
 
 Run these tests via Android Studio’s Gradle panel (`shared → verification → test`).
 
----
-
 Now, try it for yourself on the next page for some practice problems.
 
-[<- Back to Project Structure}](./practice.md)
+---
 
-[<- Back to Home](./index.md)
-
-## Additional Resources
-
-- [Official Kotlin Multiplatform Docs](https://kotlinlang.org/docs/multiplatform.html)
-- [Compose Multiplatform Overview](https://www.jetbrains.com/lp/compose-multiplatform/)
-- [KMP Sample Projects on GitHub](https://github.com/Kotlin/multiplatform-samples)
-- [KMP Hierarchal Structure on Jetbrains](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)
+### [-> Practice Problems](./practice.md)
 
 ---
+
+### [<- Back to Project Structure](./projectStructure.md)
+---
+
+### [<- Back to Home](./index.md)
+

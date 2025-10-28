@@ -3,15 +3,9 @@ title: Reusing KMP (Android app) code to make the app on another platform
 layout: default
 ---
 
-## Still need to add (based on rubric):
-- 2 practice exercises
-- broken up into multiple markdown files
-- summary/conclusion page
-- more content in general
-
 # Quick Links
 1. Homepage *(current)*
-2. [Basic Overview](./gettingStarted.md)
+2. [Getting Started](./gettingStarted.md)
 3. [Project Strucure](./projectStructure.md)
 4. [Project Setup](./setup.md)
 5. [Practice](./practice.md)
@@ -20,13 +14,26 @@ layout: default
 
 ---
 
-This is a tutorial on how to utilize Kotlin Multiplatform for integrating code to create an app on different platforms.
+This is a tutorial on how to utilize Kotlin Multiplatform for integrating reusable code in order to create an app on different platforms.
+
+---
+
+## Prerequisites
+
+- IntelliJ *or* Android Studio (how-to on installation on next page)
+- **If wanting to create iOS app a Mac is required**
+- Basic understanding of the Kotlin programming language is a plus
+
 
 To begin, click the arrow below:
 
-[-> Basic Overview](./gettingStarted.md)
+### [-> Getting Started](./gettingStarted.md)
 
 ---
+
+Or, go back to the Homepage:
+
+### [<- Back to Home](./index.md)
 
 
 ## Additional Resources

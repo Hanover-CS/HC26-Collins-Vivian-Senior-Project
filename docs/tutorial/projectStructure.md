@@ -4,8 +4,8 @@ layout: default
 ---
 
 # Quick Links
-1. [Homepage](./tutorial.md)
-2. [Basic Overview](./tutorial.md)
+1. [Homepage](./tutorial/tutorial.md)
+2. [Getting Started](./gettingStarted.md)
 3. Project Strucure *(current)*
 4. [Project Setup](./setup.md)
 5. [Practice](./practice.md)
@@ -49,7 +49,7 @@ You can arrange a hierarchy of source sets for sharing the common code among sup
 
 This is beneficial, as it ensures that each source set has access only to the API that is available for all targets to which that source set compiles. This would prevent large errors, such as a Windows-specific API existing, and then compiling it to macOS.
 
-Consider this code in `build.gradle(.kts)` file in the project's module, which should contain shared code.
+Consider this code in `build.gradle(.kts)` file in the project's module, which should contain shared code:
 
 ```kotlin
 kotlin {
@@ -62,25 +62,16 @@ When declaring targets, `androidTarget`, `iosArm64`, and `iosSimulatorArm64` in 
 
 The Kotlin Gradle plugin actually has a built-in default hierarchy template that contains predefined intermediate source sets. This plugin will set up those source sets automatically, based on the targets that are specified in your project.
 
-It would essentially look like this:
+[Jetbrains provides a deeper explanation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template), as well as some images that properly document what the[hierarchical structure generally looks like. It should essentially look like this:
 
 ![DefaultHierarchy](./screenshots/DefaultHierarchy.png)
 
 Next, we will discuss the setup process for setting up a shared model, as well as the testing process.
 
-[-> Setup Process](./setup.md)
+---
+
+### [-> Setup Process](./setup.md)
 
 ---
 
-[<- Back to Home](./index.md)
-
----
-
-## Further Resources
-
-- [Official Kotlin Multiplatform Docs](https://kotlinlang.org/docs/multiplatform.html)
-- [Compose Multiplatform Overview](https://www.jetbrains.com/lp/compose-multiplatform/)
-- [KMP Sample Projects on GitHub](https://github.com/Kotlin/multiplatform-samples)
-- [KMP Hierarchal Structure on Jetbrains](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)
-
----
+### [<- Back to Home](./index.md)

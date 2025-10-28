@@ -4,10 +4,10 @@ layout: default
 ---
 
 # Welcome!
-This is my senior project:
+This is my senior project page:
 
 Read the proposal here:
 - [Proposal](./proposal.md)
 
 KMP Tutorial here:
-- [Tutorial](./tutorial.md)
+- [Tutorial](./tutorial/tutorial.md)
