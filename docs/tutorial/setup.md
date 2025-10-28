@@ -23,7 +23,8 @@ If your existing Android app doesn’t already include a shared module, you’ll
 
 2. Edit the `shared/build.gradle.kts` file if it doesn’t exist (I would also recommend creating it if necessary):
 
-```plugins {
+```kotlin
+plugins {
     kotlin("multiplatform")
     id("com.android.library")
 }

@@ -36,7 +36,7 @@ project-root/
 
 ---
 
-## Understanding Hierarchal Project Structure
+## Understanding Hierarchical Project Structure
 
 Kotlin Multiplatform projects support hierarchical source set structures.
 
