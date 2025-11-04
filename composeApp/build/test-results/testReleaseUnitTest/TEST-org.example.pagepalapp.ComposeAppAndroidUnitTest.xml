@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.pagepalapp.ComposeAppAndroidUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-09T17:53:12.969Z" hostname="VIVIANCOLLINS" time="0.054">
-  <properties/>
-  <testcase name="example" classname="org.example.pagepalapp.ComposeAppAndroidUnitTest" time="0.054"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

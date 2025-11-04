@@ -1,2 +1,33 @@
-docs/_site
-docs/tmp
+# === Gradle ===
+.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# === Android Studio / IntelliJ ===
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+captures/
+
+# === Local configuration ===
+local.properties
+*.log
+
+# === Kotlin Multiplatform specific ===
+**/composeApp/build/
+**/shared/build/
+**/common/build/
+**/iosApp/build/
+**/androidApp/build/
+**/desktopApp/build/
+
+# === OS / Misc ===
+.DS_Store
+Thumbs.db
+
+# === APKs ===
+*.apk
+*.ap_
