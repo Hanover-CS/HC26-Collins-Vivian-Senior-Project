@@ -1,0 +1,17 @@
+CREATE TABLE Book(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    author TEXT,
+    pages INTEGER,
+    mood TEXT
+);
+
+getAllBooks:
+SELECT * FROM Book;
+
+insertBook:
+INSERT INTO Book(title, author, pages, mood)
+VALUES (?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM Book;
