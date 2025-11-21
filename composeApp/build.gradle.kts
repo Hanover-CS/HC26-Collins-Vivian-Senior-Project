@@ -37,6 +37,9 @@ kotlin {
 
                 implementation("app.cash.sqldelight:runtime:2.0.1")
                 implementation("app.cash.sqldelight:coroutines-extensions:2.0.1")
+
+                implementation("androidx.compose.ui:ui-text-google-fonts:1.6.0")
+
             }
         }
 

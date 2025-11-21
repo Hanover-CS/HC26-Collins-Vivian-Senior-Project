@@ -4,10 +4,7 @@
  *  - title and author(s)
  *  - description text
  *  - add/remove from library button
- *  - reading progress fields:
- *      - current page
- *      - total pages
- *      - progress bar & percentage
+ *  - reading progress fields (auto pageCount support!)
  */
 
 @file:OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +36,7 @@ fun BookDetailScreen(
     navController: NavController,
     viewModel: HomeViewModel
 ) {
-    val book = viewModel.getBookById(bookId)     // fetch book from results or library
+    val book = viewModel.getBookById(bookId)
 
     if (book == null) {
         Text("Book not found", modifier = Modifier.padding(32.dp))
@@ -49,12 +46,20 @@ fun BookDetailScreen(
     val info = book.volumeInfo
     val isInLibrary = viewModel.isBookInLibrary(book.id)
 
-    var currentPage by remember { mutableStateOf(book.currentPage) }  // local tracking state
+    // initial state uses the auto-populated values from Google Books
+    var currentPage by remember { mutableStateOf(book.currentPage) }
     var totalPages by remember { mutableStateOf(book.totalPages) }
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(info?.title ?: "Details") })
+            TopAppBar(
+                title = { Text(info?.title ?: "Details") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Text("←")
+                    }
+                }
+            )
         }
     ) { padding ->
 
@@ -62,10 +67,10 @@ fun BookDetailScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())   // make screen scrollable
+                .verticalScroll(rememberScrollState())
         ) {
 
-            // large top cover image
+            // big cover image
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -83,7 +88,6 @@ fun BookDetailScreen(
                     error = platformPainter("error")
                 )
 
-                // gradient overlay
                 Box(
                     modifier = Modifier
                         .matchParentSize()
@@ -95,15 +99,15 @@ fun BookDetailScreen(
                 )
             }
 
-            // textual details
+            // text content
             Column(
-                modifier = Modifier
+                Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
             ) {
 
                 Text(
-                    info?.title ?: "",
+                    info?.title.orEmpty(),
                     style = MaterialTheme.typography.headlineSmall.copy(fontSize = 24.sp)
                 )
 
@@ -123,9 +127,7 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                //---------------------------------------
-                // ADD OR REMOVE FROM LIBRARY BUTTON
-                //---------------------------------------
+                // add/remove from library button
                 Button(
                     onClick = {
                         if (isInLibrary) {
@@ -144,15 +146,11 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                //---------------------------------------
-                // READING PROGRESS SECTION
-                //---------------------------------------
-
+                // reading progress!
                 Text("Reading Progress", style = MaterialTheme.typography.titleMedium)
-
                 Spacer(Modifier.height(12.dp))
 
-                // current page input
+                // current page
                 OutlinedTextField(
                     value = currentPage.toString(),
                     onValueChange = {
@@ -165,22 +163,20 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(8.dp))
 
-                // total pages input
+                // total pages (auto-filled)
                 OutlinedTextField(
                     value = totalPages.toString(),
                     onValueChange = {
                         totalPages = it.toIntOrNull() ?: 0
                         viewModel.updateBookProgress(book.id, currentPage, totalPages)
                     },
-                    label = { Text("Total Pages") },
+                    label = { Text("Total Pages (autofilled)") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(Modifier.height(16.dp))
 
-                // progress bar + percentage
                 if (totalPages > 0) {
-
                     LinearProgressIndicator(
                         progress = (currentPage.toFloat() / totalPages.toFloat()).coerceIn(0f, 1f),
                         modifier = Modifier.fillMaxWidth()

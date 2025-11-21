@@ -1,5 +1,4 @@
 /**
-
  * this is the main screen where users:
  *  - search for books using Google Books API
  *  - browse search results
@@ -17,16 +16,18 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+
 import org.example.pagepalapp.ui.components.BookCard
 import org.example.pagepalapp.data.HomeViewModel
 import org.example.pagepalapp.ui.components.BottomNavigationBar
+import org.example.pagepalapp.ui.components.QuoteCard
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
 
-    val query by viewModel.query.collectAsState()         // search bar text
-    val books by viewModel.results.collectAsState()       // API results
-    val isLoading by viewModel.isLoading.collectAsState() // loading spinner
+    val query by viewModel.query.collectAsState()
+    val books by viewModel.results.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("PagePal") }) },
@@ -38,6 +39,9 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                 .padding(padding)
                 .padding(16.dp)
         ) {
+
+            // cute motivational card ! :)))
+            QuoteCard()
 
             // search input
             OutlinedTextField(
@@ -59,20 +63,14 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
 
             Spacer(Modifier.height(16.dp))
 
-            // results or spinner
             if (isLoading) {
-
                 CircularProgressIndicator()
-
             } else {
-
                 LazyColumn {
                     items(books) { volume ->
-
                         BookCard(volume) { selectedBook ->
                             navController.navigate("bookDetail/${selectedBook.id}")
                         }
-
                     }
                 }
             }

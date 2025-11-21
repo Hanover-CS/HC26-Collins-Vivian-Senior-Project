@@ -12,6 +12,7 @@ androidx-lifecycle = "2.9.4"
 
 retrofit = "2.9.0"
 okhttp = "4.11.0"
+uiTextGoogleFonts = "1.9.5"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -28,6 +29,7 @@ compose-ui = { group = "org.jetbrains.compose.ui", name = "ui", version.ref = "c
 compose-ui-tooling-preview = { group = "org.jetbrains.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 
 compose-preview = { group = "org.jetbrains.compose.ui", name = "ui-tooling", version.ref = "compose" }
+androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 
 [plugins]
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

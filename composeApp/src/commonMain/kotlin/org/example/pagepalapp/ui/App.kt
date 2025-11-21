@@ -4,31 +4,17 @@
 
 package org.example.pagepalapp.ui
 
-import androidx.compose.runtime.Composable
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
+import android.annotation.SuppressLint
 import androidx.compose.material3.Surface
-import androidx.compose.ui.graphics.Color
-
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import org.example.pagepalapp.ui.navigation.AppNavigation
 import org.example.pagepalapp.data.HomeViewModel
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun App() {
-
-    // light theme colors for PagePal
-    val lightColors = lightColorScheme(
-        primary = Color(0xFF6C63FF),
-        onPrimary = Color.White,
-        background = Color(0xFFF8F7FF),
-        surface = Color.White,
-        onSurface = Color(0xFF333333)
-    )
-
-    // apply Material theme & route all UI into AppNavigation()
-    MaterialTheme(colorScheme = lightColors) {
-        Surface {
-            AppNavigation(viewModel = HomeViewModel())
-        }
+    Surface(color = MaterialTheme.colorScheme.background) {
+        AppNavigation(viewModel = HomeViewModel())
     }
 }

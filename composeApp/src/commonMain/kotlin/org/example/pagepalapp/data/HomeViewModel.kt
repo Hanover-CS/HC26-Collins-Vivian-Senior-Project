@@ -59,7 +59,6 @@ class HomeViewModel : ViewModel() {
                 val resp = api.searchBooks(query = currentQuery)
 
                 if (resp.isSuccessful) {
-                    // Extract book list from response
                     val books = resp.body()?.items ?: emptyList()
                     _results.value = books
                 } else {
@@ -77,14 +76,31 @@ class HomeViewModel : ViewModel() {
     // retrieves a book using either search results OR saved library
     fun getBookById(id: String?): Volume? {
         if (id.isNullOrBlank()) return null
-        return _results.value.firstOrNull { it.id == id }
+
+        val book = _results.value.firstOrNull { it.id == id }
             ?: _libraryBooks.value.firstOrNull { it.id == id }
+            ?: return null
+
+        // autofill total pages from Google Books
+        val googlePages = book.volumeInfo?.pageCount
+        if (googlePages != null && googlePages > 0 && book.totalPages == 0) {
+            book.totalPages = googlePages
+        }
+
+        return book
     }
 
     // adds a book to the user's library (avoids duplicates)
     fun addToLibrary(book: Volume) {
         val current = _libraryBooks.value.toMutableList()
         if (current.none { it.id == book.id }) {
+
+            // autofill total pages when adding to library
+            val googlePages = book.volumeInfo?.pageCount
+            if (googlePages != null && googlePages > 0 && book.totalPages == 0) {
+                book.totalPages = googlePages
+            }
+
             current.add(book)
             _libraryBooks.value = current
         }
