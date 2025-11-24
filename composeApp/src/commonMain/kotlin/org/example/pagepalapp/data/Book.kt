@@ -11,7 +11,9 @@ data class Volume(
 
     // reading progress (stored locally)
     var currentPage: Int = 0,
-    var totalPages: Int = 0              // auto-filled from Google Books when available
+    var totalPages: Int = 0,              // auto-filled from Google Books when available
+
+    var rating: Double = 0.0  // 0.0 to 5.0 (half-stars are supported!)
 )
 
 // holds metadata returned from the Google Books API

@@ -15,6 +15,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.*
 
 class HomeViewModel : ViewModel() {
 
@@ -40,6 +41,14 @@ class HomeViewModel : ViewModel() {
     // user's in-memory personal library
     private val _libraryBooks = MutableStateFlow<List<Volume>>(emptyList())
     val libraryBooks: StateFlow<List<Volume>> = _libraryBooks
+
+    // Tracks which days the user has read
+    private val _readingDays = MutableStateFlow<Set<LocalDate>>(emptySet())
+    val readingDays: StateFlow<Set<LocalDate>> = _readingDays
+
+    fun markDayAsRead(date: LocalDate) {
+        _readingDays.value = _readingDays.value + date
+    }
 
     // updates text in search bar
     fun onQueryChange(newQuery: String) {
@@ -123,4 +132,19 @@ class HomeViewModel : ViewModel() {
             else book
         }
     }
+
+    fun toggleReadingDay(date: LocalDate) {
+        _readingDays.value =
+            if (date in _readingDays.value)
+                _readingDays.value - date    // remove
+            else
+                _readingDays.value + date    // add
+    }
+
+    fun updateBookRating(bookId: String, rating: Double) {
+        _libraryBooks.value = _libraryBooks.value.map { book ->
+            if (book.id == bookId) book.copy(rating = rating) else book
+        }
+    }
+
 }

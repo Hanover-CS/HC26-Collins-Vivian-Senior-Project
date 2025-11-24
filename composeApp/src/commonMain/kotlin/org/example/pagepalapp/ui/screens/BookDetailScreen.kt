@@ -4,7 +4,8 @@
  *  - title and author(s)
  *  - description text
  *  - add/remove from library button
- *  - reading progress fields (auto pageCount support!)
+ *  - reading progress fields
+ *  - rating bar (full + half stars)
  */
 
 @file:OptIn(ExperimentalMaterial3Api::class)
@@ -28,6 +29,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import org.example.pagepalapp.data.HomeViewModel
+import org.example.pagepalapp.ui.components.StarRatingBar
 import org.example.pagepalapp.ui.util.platformPainter
 
 @Composable
@@ -46,9 +48,9 @@ fun BookDetailScreen(
     val info = book.volumeInfo
     val isInLibrary = viewModel.isBookInLibrary(book.id)
 
-    // initial state uses the auto-populated values from Google Books
     var currentPage by remember { mutableStateOf(book.currentPage) }
     var totalPages by remember { mutableStateOf(book.totalPages) }
+    var rating by remember { mutableStateOf(book.rating) }  // ⭐ local rating state
 
     Scaffold(
         topBar = {
@@ -127,6 +129,20 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
+                // this is the rating bar
+                Text("Your Rating", style = MaterialTheme.typography.titleMedium)
+                Spacer(Modifier.height(8.dp))
+
+                StarRatingBar(
+                    rating = rating,
+                    onRatingChange = { new ->
+                        rating = new
+                        viewModel.updateBookRating(book.id, new)
+                    }
+                )
+
+                Spacer(Modifier.height(24.dp))
+
                 // add/remove from library button
                 Button(
                     onClick = {
@@ -146,11 +162,10 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                // reading progress!
+                // reading Progress
                 Text("Reading Progress", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(12.dp))
 
-                // current page
                 OutlinedTextField(
                     value = currentPage.toString(),
                     onValueChange = {
@@ -163,7 +178,6 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(8.dp))
 
-                // total pages (auto-filled)
                 OutlinedTextField(
                     value = totalPages.toString(),
                     onValueChange = {
@@ -192,3 +206,4 @@ fun BookDetailScreen(
         }
     }
 }
+

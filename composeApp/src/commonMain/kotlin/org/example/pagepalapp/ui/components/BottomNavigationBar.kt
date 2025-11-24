@@ -5,6 +5,7 @@
  *  - Home screen (search books)
  *  - Library screen (saved books)
  *  - Add Book screen (manual entry)
+ *  - Calendar screen (reading log)
  */
 
 @file:OptIn(ExperimentalMaterial3Api::class)
@@ -20,35 +21,34 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun BottomNavigationBar(navController: NavController) {
 
-    // list of bottom bar destinations
     val items = listOf(
         BottomNavItem("Home", "home", "🏠"),
         BottomNavItem("Library", "library", "📚"),
-        BottomNavItem("Add", "addBook", "➕")
+        BottomNavItem("Add", "addBook", "➕"),
+        BottomNavItem("Calendar", "calendar", "📅")
     )
 
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface
     ) {
-        // tracks which screen is currently active
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
         items.forEach { item ->
 
             NavigationBarItem(
-                selected = currentRoute == item.route,     // highlight active item
+                selected = currentRoute == item.route,
                 onClick = {
                     if (currentRoute != item.route) {
                         navController.navigate(item.route) {
-                            popUpTo("home")                // simplifies backstack
-                            launchSingleTop = true         // prevents duplicates
+                            popUpTo("home")
+                            launchSingleTop = true
                         }
                     }
                 },
-                icon = { Text(item.icon) },                // emoji icon
-                label = { Text(item.title) },              // text label below icon
+                icon = { Text(item.icon) },
+                label = { Text(item.title) },
                 alwaysShowLabel = true,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.primary,
@@ -61,7 +61,7 @@ fun BottomNavigationBar(navController: NavController) {
 
 // defines a single navigation item
 data class BottomNavItem(
-    val title: String,       // label under icon
-    val route: String,       // navigation route
-    val icon: String         // emoji icon
+    val title: String,
+    val route: String,
+    val icon: String
 )

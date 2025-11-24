@@ -2,10 +2,11 @@
  * defines the entire navigation graph using Jetpack Navigation.
  *
  * routes:
- *   - "home"        → HomeScreen (search + results)
- *   - "library"     → LibraryScreen (saved personal books)
- *   - "addBook"     → AddBookScreen (manual personal books)
- *   - "bookDetail/{id}" → Detail page for selected book
+ *   - "home"             → HomeScreen
+ *   - "library"          → LibraryScreen
+ *   - "addBook"          → AddBookScreen
+ *   - "bookDetail/{id}"  → BookDetailScreen
+ *   - "calendar"         → CalendarScreen (⭐ NEW)
  */
 
 package org.example.pagepalapp.ui.navigation
@@ -20,35 +21,30 @@ import org.example.pagepalapp.ui.screens.HomeScreen
 import org.example.pagepalapp.ui.screens.BookDetailScreen
 import org.example.pagepalapp.ui.screens.LibraryScreen
 import org.example.pagepalapp.ui.screens.AddBookScreen
+import org.example.pagepalapp.ui.screens.CalendarScreen    // ⭐ ADD THIS IMPORT
 
 @Composable
 fun AppNavigation(viewModel: HomeViewModel) {
 
-    // navigation controller that keeps track of back stack & current screen
     val navController = rememberNavController()
 
-    // main navigation graph
     NavHost(
         navController = navController,
-        startDestination = "home"     // first screen shown
+        startDestination = "home"
     ) {
 
-        // home (search screen)
         composable("home") {
             HomeScreen(navController = navController, viewModel = viewModel)
         }
 
-        // library (saved books)
         composable("library") {
             LibraryScreen(navController = navController, viewModel = viewModel)
         }
 
-        // add a personal book
         composable("addBook") {
             AddBookScreen(navController = navController, viewModel = viewModel)
         }
 
-        // book details page
         composable("bookDetail/{id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")
 
@@ -57,6 +53,11 @@ fun AppNavigation(viewModel: HomeViewModel) {
                 navController = navController,
                 viewModel = viewModel
             )
+        }
+
+        // ⭐ NEW CALENDAR ROUTE
+        composable("calendar") {
+            CalendarScreen(viewModel = viewModel)
         }
     }
 }
