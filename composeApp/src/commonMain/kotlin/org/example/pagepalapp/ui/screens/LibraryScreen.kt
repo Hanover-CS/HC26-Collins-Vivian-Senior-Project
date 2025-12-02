@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.example.pagepalapp.data.HomeViewModel
 import org.example.pagepalapp.ui.components.BookCard
@@ -36,7 +37,8 @@ fun LibraryScreen(
                 title = { Text("My Library") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Text("←")     // simple back button
+                        Text("←",
+                            fontSize = 32.sp)     // simple back button
                     }
                 }
             )

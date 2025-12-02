@@ -58,7 +58,8 @@ fun BookDetailScreen(
                 title = { Text(info?.title ?: "Details") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Text("←")
+                        Text("←",
+                            fontSize = 32.sp)
                     }
                 }
             )
@@ -78,9 +79,12 @@ fun BookDetailScreen(
                     .fillMaxWidth()
                     .height(260.dp)
             ) {
+                val thumbnailUrl = info?.imageLinks?.thumbnail
+                    ?.replace("http://", "https://")
+
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(info?.imageLinks?.thumbnail)
+                        .data(thumbnailUrl)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
@@ -100,6 +104,7 @@ fun BookDetailScreen(
                         )
                 )
             }
+        }
 
             // text content
             Column(
@@ -205,5 +210,4 @@ fun BookDetailScreen(
             }
         }
     }
-}
 

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.datetime.*
 import org.example.pagepalapp.data.HomeViewModel
 
@@ -33,7 +34,8 @@ fun CalendarScreen(viewModel: HomeViewModel) {
                 title = { Text("Reading Calendar") },
                 navigationIcon = {
                     IconButton(onClick = { /* add back if needed */ }) {
-                        Text("←")
+                        Text("←",
+                            fontSize = 32.sp)
                     }
                 }
             )

@@ -1,13 +1,11 @@
 import java.util.Properties
 
-// Load API key from local.properties
+// load API key
 val localProps = Properties().apply {
-    val localPropsFile = rootProject.file("local.properties")
-    if (localPropsFile.exists()) {
-        localPropsFile.inputStream().use { load(it) }
-    }
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
 }
-val googleBooksApiKey: String = localProps.getProperty("GOOGLE_BOOKS_API_KEY", "")
+val googleBooksApiKey = localProps.getProperty("GOOGLE_BOOKS_API_KEY", "")
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -17,51 +15,54 @@ plugins {
     id("app.cash.sqldelight") version "2.0.1"
 }
 
-// Kotlin Multiplatform Source Sets
 kotlin {
+
+    // android
     androidTarget()
+
     applyDefaultHierarchyTemplate()
 
     sourceSets {
-        // shared code (used by Android + iOS)
+
+        // common (shared code) ----
         val commonMain by getting {
             dependencies {
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
                 implementation(libs.compose.material3)
                 implementation(libs.compose.ui)
-                implementation(libs.compose.ui.tooling.preview)
 
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
 
+                // SQLDelight shared runtime (Android supports this fine)
                 implementation("app.cash.sqldelight:runtime:2.0.1")
                 implementation("app.cash.sqldelight:coroutines-extensions:2.0.1")
 
-                implementation("androidx.compose.ui:ui-text-google-fonts:1.6.0")
-
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
-
             }
         }
 
-        // androidmain
+        // ---- ANDROID PLATFORM CODE ----
         val androidMain by getting {
             dependencies {
                 implementation(libs.compose.preview)
                 implementation(libs.androidx.activity.compose)
+
+                // Android SQLDelight driver
                 implementation("app.cash.sqldelight:android-driver:2.0.1")
+
+                // Android-only fonts
+                implementation("androidx.compose.ui:ui-text-google-fonts:1.6.0")
             }
         }
 
-        // common kmp tests
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test)
             }
         }
 
-        // android unit tests
         val androidUnitTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
@@ -72,7 +73,6 @@ kotlin {
     }
 }
 
-// android config
 android {
     namespace = "org.example.pagepalapp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -111,7 +111,6 @@ android {
     }
 }
 
-// app-level dependencies
 dependencies {
     debugImplementation(libs.compose.preview)
 
@@ -127,7 +126,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.9.6")
 }
 
-// SQLDelight configuration
 sqldelight {
     databases {
         create("PagePalDatabase") {

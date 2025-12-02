@@ -30,7 +30,7 @@ data class VolumeInfo(
     val categories: List<String>? = null
 )
 
-// Image-only section of the API response
+// image-only section of the API response
 data class ImageLinks(
     val thumbnail: String?
 )

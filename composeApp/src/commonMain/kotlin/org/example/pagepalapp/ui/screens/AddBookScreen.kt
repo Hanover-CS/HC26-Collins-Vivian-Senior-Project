@@ -14,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.example.pagepalapp.data.HomeViewModel
 import org.example.pagepalapp.data.Volume
@@ -32,7 +33,8 @@ fun AddBookScreen(navController: NavController, viewModel: HomeViewModel) {
                 title = { Text("Add a Personal Book") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Text("←")                     // simple back arrow icon
+                        Text("←",
+                            fontSize = 32.sp)                     // simple back arrow icon
                     }
                 }
             )
