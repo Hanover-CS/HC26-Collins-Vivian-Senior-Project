@@ -1,11 +1,11 @@
 /**
- * displays the full details about a selected book, including:
- *  - cover image
- *  - title and author(s)
- *  - description text
- *  - add/remove from library button
- *  - reading progress fields
- *  - rating bar (full + half stars)
+ * Displays the full details about a selected book, including:
+ * - cover image
+ * - title and author(s)
+ * - description
+ * - add/remove from library
+ * - reading progress
+ * - rating bar with full + half stars
  */
 
 @file:OptIn(ExperimentalMaterial3Api::class)
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import kotlinx.coroutines.launch
 import org.example.pagepalapp.data.HomeViewModel
 import org.example.pagepalapp.ui.components.StarRatingBar
 import org.example.pagepalapp.ui.util.platformPainter
@@ -50,16 +51,28 @@ fun BookDetailScreen(
 
     var currentPage by remember { mutableStateOf(book.currentPage) }
     var totalPages by remember { mutableStateOf(book.totalPages) }
-    var rating by remember { mutableStateOf(book.rating) }  // ⭐ local rating state
+    var rating by remember { mutableStateOf(book.rating) }
+
+    val snackbarHostState = remember { SnackbarHostState() }
+    val libraryEvent by viewModel.libraryEvent.collectAsState()
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(libraryEvent) {
+        libraryEvent?.let { msg ->
+            scope.launch {
+                snackbarHostState.showSnackbar(msg)
+            }
+        }
+    }
 
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text(info?.title ?: "Details") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Text("←",
-                            fontSize = 32.sp)
+                        Text("←", fontSize = 32.sp)
                     }
                 }
             )
@@ -73,7 +86,9 @@ fun BookDetailScreen(
                 .verticalScroll(rememberScrollState())
         ) {
 
-            // big cover image
+            /* --------------------
+               Cover Image Section
+            ---------------------- */
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -99,20 +114,25 @@ fun BookDetailScreen(
                         .matchParentSize()
                         .background(
                             Brush.verticalGradient(
-                                listOf(Color.Transparent, Color.Black.copy(alpha = 0.55f))
+                                listOf(
+                                    Color.Transparent,
+                                    Color.Black.copy(alpha = 0.55f)
+                                )
                             )
                         )
                 )
             }
-        }
 
-            // text content
+            /* --------------------
+               Main Text Content
+            ---------------------- */
             Column(
                 Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
             ) {
 
+                // Title
                 Text(
                     info?.title.orEmpty(),
                     style = MaterialTheme.typography.headlineSmall.copy(fontSize = 24.sp)
@@ -120,6 +140,7 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(6.dp))
 
+                // Author(s)
                 Text(
                     info?.authors?.joinToString(", ") ?: "",
                     style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFF444444))
@@ -127,6 +148,7 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(16.dp))
 
+                // Description
                 Text(
                     info?.description ?: "No description available.",
                     style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 22.sp)
@@ -134,7 +156,9 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                // this is the rating bar
+                /* --------------------
+                   Rating Bar
+                ---------------------- */
                 Text("Your Rating", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(8.dp))
 
@@ -148,7 +172,9 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                // add/remove from library button
+                /* --------------------
+                   Add / Remove Button
+                ---------------------- */
                 Button(
                     onClick = {
                         if (isInLibrary) {
@@ -167,7 +193,9 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                // reading Progress
+                /* --------------------
+                   Reading Progress
+                ---------------------- */
                 Text("Reading Progress", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(12.dp))
 
@@ -189,25 +217,25 @@ fun BookDetailScreen(
                         totalPages = it.toIntOrNull() ?: 0
                         viewModel.updateBookProgress(book.id, currentPage, totalPages)
                     },
-                    label = { Text("Total Pages (autofilled)") },
+                    label = { Text("Total Pages") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(Modifier.height(16.dp))
 
                 if (totalPages > 0) {
+                    val progress = (currentPage.toFloat() / totalPages.toFloat()).coerceIn(0f, 1f)
+
                     LinearProgressIndicator(
-                        progress = (currentPage.toFloat() / totalPages.toFloat()).coerceIn(0f, 1f),
+                        progress = progress,
                         modifier = Modifier.fillMaxWidth()
                     )
 
                     Spacer(Modifier.height(8.dp))
 
-                    Text(
-                        "${((currentPage.toFloat() / totalPages.toFloat()) * 100).toInt()}% read"
-                    )
+                    Text("${(progress * 100).toInt()}% read")
                 }
             }
         }
     }
-
+}

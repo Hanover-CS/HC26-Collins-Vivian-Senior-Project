@@ -15,6 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.example.pagepalapp.ui.components.BookCard
 import org.example.pagepalapp.data.HomeViewModel
 import org.example.pagepalapp.ui.components.BottomNavigationBar
@@ -81,6 +86,7 @@ fun ReadingMoodSelector(
     }
 }
 
+
 @Composable
 fun SearchSuggestionsRow(
     onSuggestionClick: (String) -> Unit
@@ -116,7 +122,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
     val isLoading by viewModel.isLoading.collectAsState()
     var selectedMood by remember { mutableStateOf<ReadingMood?>(null) }
 
-
+    val scope = rememberCoroutineScope()
 
     // pink background gradient
     val backgroundBrush = Brush.verticalGradient(
@@ -155,6 +161,12 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                 selectedMood = selectedMood,
                 onMoodSelected = { mood ->
                     selectedMood = mood
+                    viewModel.logMoodForToday(mood.emoji)
+
+                    // also mark today as a reading day
+                    viewModel.logReading(
+                        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+                    )
                 }
             )
 
@@ -165,7 +177,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                 shape = RoundedCornerShape(22.dp),
                 elevation = CardDefaults.elevatedCardElevation(8.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFFF3E5F5) // pastel lavender
+                    containerColor = Color(0xFFF3E5F5)
                 ),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -185,15 +197,23 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                         singleLine = true
                     )
 
+                    // searches by subject and not by keywords
                     SearchSuggestionsRow { suggestion ->
-                        viewModel.onQueryChange(suggestion)
-                        viewModel.searchBooks()
+                        val subjectQuery = "subject:\"$suggestion\""
+                        viewModel.onQueryChange(subjectQuery)
+                        scope.launch {
+                            viewModel.searchBooks()
+                        }
                     }
 
                     Spacer(Modifier.height(14.dp))
 
                     Button(
-                        onClick = { viewModel.searchBooks() },
+                        onClick = {
+                            scope.launch {
+                                viewModel.searchBooks()
+                            }
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp),
@@ -210,7 +230,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
 
             Spacer(Modifier.height(24.dp))
 
-            // search results label
             if (!isLoading && books.isNotEmpty()) {
                 Text(
                     text = "Results",
@@ -220,7 +239,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                 )
             }
 
-            // loading indicator
             if (isLoading) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -243,3 +261,5 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
         }
     }
 }
+
+private fun HomeViewModel.logReading(date: LocalDate) {}

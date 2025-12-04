@@ -55,9 +55,9 @@ fun AppNavigation(viewModel: HomeViewModel) {
             )
         }
 
-        // ⭐ NEW CALENDAR ROUTE
         composable("calendar") {
-            CalendarScreen(viewModel = viewModel)
+            CalendarScreen(viewModel = viewModel,
+                navController = navController)
         }
     }
 }

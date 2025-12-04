@@ -1,96 +1,81 @@
 /**
- * manages:
- *  - getting books from Google Books API
- *  - loading state
- *  - search query input
- *  - search results list
- *  - user's personal library (in-memory list)
- *  - progress tracking (currentPage, totalPages)
+ * displays the full details about a selected book, including:
+ *  - cover image
+ *  - title and author(s)
+ *  - description text
+ *  - add/remove from library button
+ *  - reading progress fields
+ *  - rating bar (full + half stars)
  */
+
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package org.example.pagepalapp.data
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import kotlinx.datetime.*
 
 class HomeViewModel : ViewModel() {
 
-    // API instance
     private val api = NetworkModule.booksApi
 
-    // search bar text
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query
 
-    // results returned from the Google Books API
     private val _results = MutableStateFlow<List<Volume>>(emptyList())
     val results: StateFlow<List<Volume>> = _results
 
-    // shows progress indicator
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    // error messages from network failures
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    // user's in-memory personal library
+    private val _moodLogs = MutableStateFlow<Map<LocalDate, String>>(emptyMap())
+    val moodLogs: StateFlow<Map<LocalDate, String>> = _moodLogs
+
+    // personal library
     private val _libraryBooks = MutableStateFlow<List<Volume>>(emptyList())
     val libraryBooks: StateFlow<List<Volume>> = _libraryBooks
 
-    // Tracks which days the user has read
-    private val _readingDays = MutableStateFlow<Set<LocalDate>>(emptySet())
-    val readingDays: StateFlow<Set<LocalDate>> = _readingDays
+    private val _libraryEvent = MutableStateFlow<String?>(null)
+    val libraryEvent: StateFlow<String?> = _libraryEvent
 
-    fun markDayAsRead(date: LocalDate) {
-        _readingDays.value = _readingDays.value + date
-    }
+    fun addToLibrary(book: Volume) {
+        if (_libraryBooks.value.any { it.id == book.id }) return
 
-    // updates text in search bar
-    fun onQueryChange(newQuery: String) {
-        _query.value = newQuery
-    }
-
-    // calls Google Books API based on search input
-    fun searchBooks() {
-        val currentQuery = _query.value.trim()
-        if (currentQuery.isEmpty()) return
-
-        viewModelScope.launch {
-            _isLoading.value = true
-            _error.value = null
-
-            try {
-                val resp = api.searchBooks(query = currentQuery)
-
-                if (resp.isSuccessful) {
-                    val books = resp.body()?.items ?: emptyList()
-                    _results.value = books
-                } else {
-                    _error.value = "API error: ${resp.code()}"
-                }
-
-            } catch (e: Exception) {
-                _error.value = e.message ?: "Network error"
-            } finally {
-                _isLoading.value = false
-            }
+        // autofills total pages from Google Books
+        val googlePages = book.volumeInfo?.pageCount
+        if (googlePages != null && googlePages > 0 && book.totalPages == 0) {
+            book.totalPages = googlePages
         }
+
+        _libraryBooks.value = _libraryBooks.value + book
+
+        _libraryEvent.value = "Added to library!"
     }
 
-    // retrieves a book using either search results OR saved library
+    fun removeFromLibrary(bookId: String) {
+        _libraryBooks.value = _libraryBooks.value.filter { it.id != bookId }
+    }
+
+    fun isBookInLibrary(bookId: String): Boolean =
+        _libraryBooks.value.any { it.id == bookId }
+
+
+    // book lookup
     fun getBookById(id: String?): Volume? {
         if (id.isNullOrBlank()) return null
 
-        val book = _results.value.firstOrNull { it.id == id }
-            ?: _libraryBooks.value.firstOrNull { it.id == id }
-            ?: return null
+        val book =
+            _results.value.firstOrNull { it.id == id }
+                ?: _libraryBooks.value.firstOrNull { it.id == id }
+                ?: return null
 
-        // autofill total pages from Google Books
+        // autofill Google pageCount
         val googlePages = book.volumeInfo?.pageCount
         if (googlePages != null && googlePages > 0 && book.totalPages == 0) {
             book.totalPages = googlePages
@@ -99,52 +84,99 @@ class HomeViewModel : ViewModel() {
         return book
     }
 
-    // adds a book to the user's library (avoids duplicates)
-    fun addToLibrary(book: Volume) {
-        val current = _libraryBooks.value.toMutableList()
-        if (current.none { it.id == book.id }) {
+    // searchbar
+    fun onQueryChange(newQuery: String) {
+        _query.value = newQuery
+    }
 
-            // autofill total pages when adding to library
-            val googlePages = book.volumeInfo?.pageCount
-            if (googlePages != null && googlePages > 0 && book.totalPages == 0) {
-                book.totalPages = googlePages
-            }
+    suspend fun searchBooks() {
+        val q = _query.value.trim()
+        if (q.isEmpty()) return
 
-            current.add(book)
-            _libraryBooks.value = current
+        _isLoading.value = true
+        _error.value = null
+
+        try {
+            val resp = api.searchBooks(q)
+            _results.value = resp.body()?.items ?: emptyList()
+        } catch (e: Exception) {
+            _error.value = e.message ?: "Network error"
+        } finally {
+            _isLoading.value = false
         }
     }
 
-    // removes a book from the personal library
-    fun removeFromLibrary(bookId: String) {
-        _libraryBooks.value = _libraryBooks.value.filterNot { it.id == bookId }
-    }
 
-    // checks if a book is saved
-    fun isBookInLibrary(bookId: String) =
-        _libraryBooks.value.any { it.id == bookId }
-
-    // updates progress tracking fields inside the library list
+    // book progress
     fun updateBookProgress(bookId: String, currentPage: Int, totalPages: Int) {
         _libraryBooks.value = _libraryBooks.value.map { book ->
-            if (book.id == bookId)
-                book.copy(currentPage = currentPage, totalPages = totalPages)
+            if (book.id == bookId) book.copy(
+                currentPage = currentPage,
+                totalPages = totalPages
+            )
             else book
         }
+        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        _readingLogs.value = _readingLogs.value + today
+        updateStreak()
     }
 
-    fun toggleReadingDay(date: LocalDate) {
-        _readingDays.value =
-            if (date in _readingDays.value)
-                _readingDays.value - date    // remove
-            else
-                _readingDays.value + date    // add
-    }
 
+    // book rating
     fun updateBookRating(bookId: String, rating: Double) {
         _libraryBooks.value = _libraryBooks.value.map { book ->
             if (book.id == bookId) book.copy(rating = rating) else book
         }
     }
 
+
+    // reading log in calendar
+    private val _readingLogs = MutableStateFlow<Set<LocalDate>>(emptySet())
+    val readingLogs: StateFlow<Set<LocalDate>> = _readingLogs
+
+    fun toggleReadingDay(date: LocalDate) {
+        _readingLogs.value =
+            if (date in _readingLogs.value)
+                _readingLogs.value - date
+            else
+                _readingLogs.value + date
+
+        updateStreak()
+    }
+
+
+    // streak
+    private val _previousStreak = MutableStateFlow(0)
+    val previousStreak: StateFlow<Int> = _previousStreak
+
+    private val _streak = MutableStateFlow(0)
+    val streak: StateFlow<Int> = _streak
+
+    fun calculateStreak(): Int {
+        val logs = _readingLogs.value.toList().sortedDescending()
+        if (logs.isEmpty()) return 0
+
+        var count = 1
+        for (i in 0 until logs.size - 1) {
+            if (logs[i].minus(DatePeriod(days = 1)) == logs[i + 1]) {
+                count++
+            } else break
+        }
+        return count
+    }
+
+    private fun updateStreak() {
+        val newStreak = calculateStreak()
+        _streak.value = newStreak
+
+        // Used for confetti + banner animation triggers
+        if (newStreak > _previousStreak.value) {
+            _previousStreak.value = newStreak
+        }
+    }
+
+    fun logMoodForToday(moodEmoji: String) {
+        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        _moodLogs.value = _moodLogs.value + (today to moodEmoji)
+    }
 }

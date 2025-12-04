@@ -40,6 +40,8 @@ kotlin {
                 implementation("app.cash.sqldelight:coroutines-extensions:2.0.1")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+
+                implementation("nl.dionsegijn:konfetti-compose:2.0.4")
             }
         }
 
