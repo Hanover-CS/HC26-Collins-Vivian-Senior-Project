@@ -104,7 +104,7 @@ fun BookCard(
                     )
                 )
 
-                // ⭐ Rating shown only if > 0
+                // rating shown only if > 0
                 if (volume.rating > 0.0) {
                     Spacer(Modifier.height(6.dp))
                     StarRatingBar(
@@ -114,7 +114,7 @@ fun BookCard(
                     )
                 }
 
-                // ⭐ Pages progress only in library
+                // pages progress only in library
                 if (volume.totalPages > 0) {
 
                     Spacer(Modifier.height(8.dp))

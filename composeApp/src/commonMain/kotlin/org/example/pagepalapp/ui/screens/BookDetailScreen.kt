@@ -86,9 +86,7 @@ fun BookDetailScreen(
                 .verticalScroll(rememberScrollState())
         ) {
 
-            /* --------------------
-               Cover Image Section
-            ---------------------- */
+            // cover image
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -123,16 +121,14 @@ fun BookDetailScreen(
                 )
             }
 
-            /* --------------------
-               Main Text Content
-            ---------------------- */
+            // main text
             Column(
                 Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
             ) {
 
-                // Title
+                // title
                 Text(
                     info?.title.orEmpty(),
                     style = MaterialTheme.typography.headlineSmall.copy(fontSize = 24.sp)
@@ -140,7 +136,7 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(6.dp))
 
-                // Author(s)
+                // author(s)
                 Text(
                     info?.authors?.joinToString(", ") ?: "",
                     style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFF444444))
@@ -148,7 +144,7 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(16.dp))
 
-                // Description
+                // description
                 Text(
                     info?.description ?: "No description available.",
                     style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 22.sp)
@@ -156,9 +152,7 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                /* --------------------
-                   Rating Bar
-                ---------------------- */
+                // rating bar
                 Text("Your Rating", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(8.dp))
 
@@ -172,9 +166,7 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                /* --------------------
-                   Add / Remove Button
-                ---------------------- */
+                // add/remove button
                 Button(
                     onClick = {
                         if (isInLibrary) {
@@ -193,9 +185,8 @@ fun BookDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                /* --------------------
-                   Reading Progress
-                ---------------------- */
+                // reading progress
+
                 Text("Reading Progress", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(12.dp))
 

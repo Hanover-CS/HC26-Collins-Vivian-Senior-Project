@@ -59,13 +59,13 @@ fun CalendarScreen(
                 .fillMaxSize()
         ) {
 
-            // Streak banner
+            // streak banner
             if (streak >= 3) {
                 StreakBanner(streak = streak)
                 Spacer(Modifier.height(16.dp))
             }
 
-            // Month header
+            // month header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -93,7 +93,7 @@ fun CalendarScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // Day labels
+            // day labels
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -204,7 +204,7 @@ fun CalendarMonthGrid(
 
                                 Spacer(Modifier.height(2.dp))
 
-                                // Mood emoji OR ⭐
+                                // mood emoji OR ⭐ (default)
                                 when {
                                     moodEmoji != null -> {
                                         Text(
